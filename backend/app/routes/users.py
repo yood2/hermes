@@ -1,12 +1,11 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
+import json
+from typing import List
+from ..models.user import User
 
-app = FastAPI()
+router = APIRouter()
 
 USER_DATABASE = '../data/users.json'
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello World"}
 
 def get_users():
     try:
@@ -19,7 +18,7 @@ def save_users(users):
     with open(USER_DATABASE, 'w') as file:
         json.dump(users, file)
 
-@app.post('/users')
+@router.post('/', response_model=User)
 def create_user(user: User):
     users = get_users()
     users.append(user)
