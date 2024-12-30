@@ -1,3 +1,6 @@
 # Normal Things
 .DS_Store
 .env
+
+# Persist Dir
+data/
