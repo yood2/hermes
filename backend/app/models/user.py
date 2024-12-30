@@ -1,5 +1,6 @@
 from pydantic import BaseModel
+from typing import Dict
 
 class User(BaseModel):
-    id: int
-    portfolio: dict
+    user_id: str
+    portfolio: Dict = {}
