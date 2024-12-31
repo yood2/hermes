@@ -1,11 +1,12 @@
 import unittest
 from app.models.user import User
+from datetime import datetime
 
 class TestUser(unittest.TestCase):
     def test_valid_user(self):
         user = User(user_id="12345")
         self.assertEqual(user.user_id, "12345")
-        self.assertEqual(user.portfolio, {})
+        self.assertIsInstance(user.created_at, datetime)
     
     def test_invalid_id_too_long(self):
         with self.assertRaises(ValueError) as context:

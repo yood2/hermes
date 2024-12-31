@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.post('/', response_model=User)
 def create_user(user: User, session: Session = Depends(get_session)):
-    db_user = User(user_id=user.user_id, portfolio=user.portfolio)
+    db_user = User(user_id=user.user_id)
     session.add(db_user)
     session.commit()
     session.refresh(db_user)
