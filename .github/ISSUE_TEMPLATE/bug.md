@@ -1,3 +1,11 @@
+---
+name: Bug Report
+about: Report a bug
+title: '[Bug Report]'
+labels: ''
+assignees: ''
+---
+
 ## Expected Behavior
 
 <!--- Tell us what should happen -->
