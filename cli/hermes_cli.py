@@ -25,19 +25,29 @@ def cli():
 
     Select an option:
     1. Create a new user
+    2. Get user data
     9. Exit
 ''')
-    option = input("Enter an option: ")
-    if option == "1":
-        create_user()
-    elif option == "9":
-        exit()
-    else:
-        print("Invalid option")
+    
+    while True:
+        option = input("Enter an option: ")
+        if option == "1":
+            create_user()
+        elif option == "2":
+            get_user()
+        elif option == "9":
+            exit()
+        else:
+            print("Invalid option")
 
 def create_user():
     user_id = input("Enter a user ID: ")
     response = requests.post(f"{BASE_URL}/users", json={"user_id": user_id})
+    print(response.json())
+
+def get_user():
+    user_id = input("Enter a user ID: ")
+    response = requests.get(f"{BASE_URL}/users/{user_id}")
     print(response.json())
 
 if __name__ == "__main__":
