@@ -4,7 +4,8 @@
 
 ### User Table
 
--   user_id: string
+-   id: integer
+-   name: string
 -   created_at: timestamp
 
 ### Portfolio Table
