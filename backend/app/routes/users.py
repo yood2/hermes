@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import json
 from typing import List
 from ..models.user import User
@@ -29,4 +29,12 @@ def create_user(user: User):
     users = get_users()
     users.append(user.dict())
     save_users(users)
+    return user
+
+@router.get('/{user_id}', response_model=User)
+def get_user(user_id: str):
+    users = get_users()
+    user = next((u for u in users if u['user_id'] == user_id), None)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
     return user
