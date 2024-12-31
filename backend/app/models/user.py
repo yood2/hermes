@@ -1,24 +1,12 @@
-from pydantic import BaseModel
-from typing import Dict
+from sqlmodel import SQLModel, Field
+from typing import Dict, Optional
 from pydantic import validator
+from sqlalchemy import JSON
 
-'''
-    User Model
-    ---------
-    Represents a user in the system.
-
-    Attributes:
-        user_id: str
-        portfolio: Dict
-    
-    Methods:
-        __init__: Initialize a new user and confirms the user_id and portfolio values are valid.
-        validate_user_id: Validate the user_id value (has less than 10 characters).
-        validate_portfolio: Validate the portfolio value (is a dictionary).
-'''
-class User(BaseModel):
-    user_id: str
-    portfolio: Dict = {}
+class User(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: str = Field(index=True)
+    portfolio: Dict = Field(default={}, sa_type=JSON)
 
     @validator('user_id')
     def validate_user_id(cls, v):
