@@ -1,5 +1,5 @@
 # Hermes
 
-Herems is a tool for managing your personal stock portfolio.
+Hermes is a tool for managing your personal stock portfolio.
 
-Still in development.
+Still in development :)
