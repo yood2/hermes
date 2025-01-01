@@ -4,23 +4,6 @@ BASE_URL = "http://127.0.0.1:8000"
 
 def cli():
     print('''
-
-         _       _    _            _          _   _         _           _        
-        / /\    / /\ /\ \         /\ \       /\_\/\_\ _    /\ \        / /\      
-       / / /   / / //  \ \       /  \ \     / / / / //\_\ /  \ \      / /  \     
-      / /_/   / / // /\ \ \     / /\ \ \   /\ \/ \ \/ / // /\ \ \    / / /\ \__  
-     / /\ \__/ / // / /\ \_\   / / /\ \_\ /  \____\__/ // / /\ \_\  / / /\ \___\ 
-    / /\ \___\/ // /_/_ \/_/  / / /_/ / // /\/________// /_/_ \/_/  \ \ \ \/___/ 
-   / / /\/___/ // /____/\    / / /__\/ // / /\/_// / // /____/\      \ \ \       
-  / / /   / / // /\____\/   / / /_____// / /    / / // /\____\/  _    \ \ \      
- / / /   / / // / /______  / / /\ \ \ / / /    / / // / /______ /_/\__/ / /      
-/ / /   / / // / /_______\/ / /  \ \ \\/_/    / / // / /_______\\ \/___/ /       
-\/_/    \/_/ \/__________/\/_/    \_\/        \/_/ \/__________/ \_____\/        
-                                                                                 
-
-''')
-    input("Press Enter to continue...")
-    print('''
     Welcome to Hermes CLI.
 
     Select an option:
@@ -42,13 +25,33 @@ def cli():
 
 def create_user():
     user_id = input("Enter a user ID: ")
-    response = requests.post(f"{BASE_URL}/users", json={"user_id": user_id})
-    print(response.json())
+    try:
+        response = requests.post(f"{BASE_URL}/users", json={"user_id": user_id})
+        if response.status_code >= 400:
+            error_data = response.json()
+            print("\n❌ Error creating user:")
+            print(f"Status code: {response.status_code}")
+            print(f"Detail: {error_data.get('detail', 'Unknown error')}\n")
+        else:
+            print("\n✅ User created successfully:")
+            print(response.json(), "\n")
+    except requests.RequestException as e:
+        print(f"\n❌ Connection error: {str(e)}\n")
 
 def get_user():
     user_id = input("Enter a user ID: ")
-    response = requests.get(f"{BASE_URL}/users/{user_id}")
-    print(response.json())
+    try:
+        response = requests.get(f"{BASE_URL}/users/{user_id}")
+        if response.status_code >= 400:
+            error_data = response.json()
+            print("\n❌ Error retrieving user:")
+            print(f"Status code: {response.status_code}")
+            print(f"Detail: {error_data.get('detail', 'Unknown error')}\n")
+        else:
+            print("\n✅ User found:")
+            print(response.json(), "\n")
+    except requests.RequestException as e:
+        print(f"\n❌ Connection error: {str(e)}\n")
 
 if __name__ == "__main__":
     cli()
