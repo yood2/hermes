@@ -39,6 +39,8 @@ naming conventions (camelCase).
 -   createdAt: timestamp
 -   updatedAt: timestamp
 
+![Schema](./jan1.png)
+
 ## December 30, 2024 - Draft 1
 
 ### User Table
